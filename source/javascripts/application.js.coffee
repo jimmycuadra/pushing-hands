@@ -5,9 +5,12 @@ class Cell extends Backbone.Model
   @COLORS = ["r", "g", "b", "o"]
 
   initialize: ->
-    unless @get("color")
-      index = Math.floor(Math.random() * @constructor.COLORS.length)
-      @set("color", @constructor.COLORS[index])
+    colors = @constructor.COLORS.slice()
+    upperNeighbor = @get("upperNeighbor")
+    if upperNeighbor
+      colors = _.difference(colors, [upperNeighbor.get("color")])
+    index = Math.floor(Math.random() * colors.length)
+    @set("color", colors[index])
 
 class CellRow extends Backbone.Collection
   model: Cell
@@ -82,13 +85,19 @@ class HandView extends Backbone.View
 
 class Application
   constructor: (rowCount, columnCount) ->
-    rows = for i in [0...rowCount]
-      collection = for j in [0...columnCount]
-        new Cell
-      new CellRow(collection)
-
+    rows = @generateRows(rowCount, columnCount)
     @grid = new CellRowsView(rows: rows)
     @grid.render()
+
+  generateRows: (rowCount, columnCount) ->
+    upperNeighbors = []
+
+    rows = for i in [0...rowCount]
+      collection = for j in [0...columnCount]
+        if i > 0
+          upperNeighbor = upperNeighbors[j]
+        upperNeighbors[j] = new Cell(upperNeighbor: upperNeighbor)
+      new CellRow(collection)
 
 $ ->
   window.ph = new Application(10, 10)
