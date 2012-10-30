@@ -1,7 +1,7 @@
 #= require underscore
 #= require backbone
 
-class window.Cell extends Backbone.Model
+class Cell extends Backbone.Model
   @COLORS = ["r", "g", "b", "o"]
 
   initialize: ->
@@ -30,9 +30,15 @@ class CellRowView extends Backbone.View
     @collection.on("push", @push, this)
 
   render: ->
+    leftHandView = new HandView(cells: @collection)
+    @$el.append(leftHandView.render().el)
+
     @collection.each (cell) =>
       view = new CellView(model: cell)
       @$el.append(view.render().el)
+
+    rightHandView = new HandView(cells: @collection, flip: true)
+    @$el.append(rightHandView.render().el)
     this
 
   push: (flip) ->
@@ -56,18 +62,23 @@ class CellView extends Backbone.View
     @$el.removeClass().addClass(@model.get("color"))
     this
 
-class HandsView extends Backbone.View
+class HandView extends Backbone.View
+  className: "hand"
+
   events:
     "click": "clickedHand"
 
   initialize: ->
-    @setElement(@options.id)
-    @grid = @options.grid
+    @cells = @options.cells
     @flip = !!@options.flip
 
-  clickedHand: (event) =>
-    index = $(event.target).index()
-    @grid.rows[index].trigger("push", @flip)
+  render: ->
+    if @flip
+      @$el.addClass("flip")
+    this
+
+  clickedHand: (event) ->
+    @cells.trigger("push", @flip)
 
 class Application
   constructor: (rowCount, columnCount) ->
@@ -78,9 +89,6 @@ class Application
 
     @grid = new CellRowsView(rows: rows)
     @grid.render()
-
-    @handsLeft = new HandsView(id: "#hands-left", grid: @grid)
-    @handsRight = new HandsView(id: "#hands-right", grid: @grid, flip: true)
 
 $ ->
   window.ph = new Application(10, 10)
