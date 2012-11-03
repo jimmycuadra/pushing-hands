@@ -1,0 +1,14 @@
+%h2 Settings
+%form
+  %fieldset
+    .row-fluid
+      .span6
+        %label.checkbox
+          %input#autoplay{ type: "checkbox", checked: @autoPlayMusic }
+          Auto play music on load
+        %label#sfx.checkbox
+          %input{ type: "checkbox", checked: @playSoundEffects }
+          Play sound effects
+      .span6
+        %button#reset.btn.btn-danger
+          Reset stats

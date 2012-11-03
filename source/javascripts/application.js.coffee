@@ -1,5 +1,6 @@
 #= require ./vendor/underscore
 #= require ./vendor/backbone
+#= require ./vendor/amplify.store
 #= require hamlcoffee
 #= require core
 #= require_tree ./models
@@ -9,6 +10,7 @@
 
 class ph.Application
   constructor: (rowCount, columnCount) ->
+    @store = new ph.Store(amplify.store("pushing-hands"))
     @setUpGrid(rowCount, columnCount)
     @setUpSounds()
     @setUpHUD()
@@ -28,14 +30,17 @@ class ph.Application
         new ph.Sound(name: "match")
         new ph.Sound(name: "fill")
       ]
+    @music.play() if @store.get("autoPlayMusic")
 
   setUpHUD: ->
     @stats = new ph.StatsView
     @musicPlayer = new ph.MusicPlayerView(model: @music)
+    @settings = new ph.SettingsView(model: @store)
 
     hud = $("#hud")
     hud.append(@stats.render().el)
     hud.append(@musicPlayer.render().el)
+    hud.append(@settings.render().el)
 
   generateRows: (rowCount, columnCount) ->
     upperNeighbors = []

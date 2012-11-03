@@ -1,15 +1,14 @@
-%h2 Music
-.spaced
-  %button.btn.prev
-    %i.icon-backward
-  %button.btn.btn-large.toggle
-    - if @state is "paused"
-      %i.icon-play
-    - else
-      %i.icon-pause
-  %button.btn.next
-    %i.icon-forward
-%p
-  Music composed and performed by
-  != succeed ".", ->
+%h2
+  Music
+  %small
+    Composed and performed by
     %a{ href: "http://nebyoolae.com/", target: "_blank" } Nebyoolae
+%button.btn.prev
+  %i.icon-backward
+%button.btn.btn-large.toggle
+  - if @state is "paused"
+    %i.icon-play
+  - else
+    %i.icon-pause
+%button.btn.next
+  %i.icon-forward
