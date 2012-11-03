@@ -53,7 +53,7 @@ class CellRowView extends Backbone.View
       newColor = nextColor
       nextColor = cell.get("color")
       cell.set("color", newColor)
-
+    ph.trigger("sfx", "push")
 
 class CellView extends Backbone.View
   tagName: "td"
@@ -83,11 +83,53 @@ class HandView extends Backbone.View
   clickedHand: (event) ->
     @cells.trigger("push", @flip)
 
+class GameMusic
+  constructor: (ids) ->
+    @currentIndex = 0
+    @clips = for id in ids
+      clip = document.getElementById(id)
+      clip.volume = 0.3
+      clip.addEventListener("ended", @playNext)
+      clip
+
+  play: ->
+    clip = @clips[@currentIndex]
+    clip.currentTime = 0
+    clip.play()
+
+  pause: ->
+    @clips[@currentIndex].pause()
+
+  playNext: =>
+    @pause()
+    @currentIndex++
+    @currentIndex = 0 if @currentIndex >= @clips.length
+    @play()
+
+class GameSFX
+  constructor: (ids) ->
+    @clips = {}
+    for id in ids
+      @clips[id] = document.getElementById(id)
+
+  trigger: (sfx) =>
+    clip = @clips[sfx]
+    unless clip.paused
+      clip.pause()
+      clip.currentTime = 0
+    clip.play()
+
 class Application
   constructor: (rowCount, columnCount) ->
     rows = @generateRows(rowCount, columnCount)
     @grid = new CellRowsView(rows: rows)
+    @music = new GameMusic(["relaxing", "tense"])
+    @sfx = new GameSFX(["push", "match", "fill"])
+
+    @on("sfx", @sfx.trigger)
+
     @grid.render()
+    @music.play()
 
   generateRows: (rowCount, columnCount) ->
     upperNeighbors = []
@@ -98,6 +140,8 @@ class Application
           upperNeighbor = upperNeighbors[j]
         upperNeighbors[j] = new Cell(upperNeighbor: upperNeighbor)
       new CellRow(collection)
+
+_.extend(Application.prototype, Backbone.Events)
 
 $ ->
   window.ph = new Application(10, 10)
