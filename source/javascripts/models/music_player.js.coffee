@@ -5,9 +5,14 @@ class ph.MusicPlayer extends Backbone.Model
 
   initialize: ->
     @collection.on("change:state", @stateChanged, this)
+    @collection.on("ended", @playNextTrack, this)
 
   stateChanged: (model, state, attributes) ->
     @set(state: state)
+
+  playNextTrack: ->
+    @nextTrack()
+    @play()
 
   currentTrack: ->
     @collection.at(@get("currentIndex"))
