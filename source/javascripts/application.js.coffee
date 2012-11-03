@@ -1,5 +1,7 @@
 #= require underscore
 #= require backbone
+#= require hamlcoffee
+#= require_tree ./templates
 
 class Cell extends Backbone.Model
   @COLORS = ["r", "g", "b", "o"]
@@ -83,6 +85,33 @@ class HandView extends Backbone.View
   clickedHand: (event) ->
     @cells.trigger("push", @flip)
 
+class StatsView extends Backbone.View
+  template: JST.stats
+
+  render: ->
+    @$el.html(@template({}))
+    this
+
+class MusicPlayerView extends Backbone.View
+  template: JST.music_player
+
+  events:
+    "click button": "togglePlay"
+
+  initialize: (options) ->
+    @music = options.music
+    @music.on("togglePlay", @render, this)
+
+  render: ->
+    @$el.html(@template(this))
+    this
+
+  togglePlay: (event) =>
+    if @music.isPaused()
+      @music.play()
+    else
+      @music.pause()
+
 class GameMusic
   constructor: (ids) ->
     @currentIndex = 0
@@ -93,18 +122,23 @@ class GameMusic
       clip
 
   play: ->
-    clip = @clips[@currentIndex]
-    clip.currentTime = 0
-    clip.play()
+    @clips[@currentIndex].play()
+    @trigger("togglePlay")
 
   pause: ->
     @clips[@currentIndex].pause()
+    @trigger("togglePlay")
 
   playNext: =>
     @pause()
     @currentIndex++
     @currentIndex = 0 if @currentIndex >= @clips.length
     @play()
+
+  isPaused: ->
+    @clips[@currentIndex].paused
+
+_.extend(GameMusic.prototype, Backbone.Events)
 
 class GameSFX
   constructor: (ids) ->
@@ -123,12 +157,18 @@ class Application
   constructor: (rowCount, columnCount) ->
     rows = @generateRows(rowCount, columnCount)
     @grid = new CellRowsView(rows: rows)
+
     @music = new GameMusic(["relaxing", "tense"])
     @sfx = new GameSFX(["push", "match", "fill"])
-
     @on("sfx", @sfx.trigger)
 
+    hud = $("#hud")
+    @stats = new StatsView
+    @musicPlayer = new MusicPlayerView(music: @music)
+
     @grid.render()
+    hud.append(@stats.render().el)
+    hud.append(@musicPlayer.render().el)
     @music.play()
 
   generateRows: (rowCount, columnCount) ->

@@ -1,0 +1,10 @@
+%h2 Stats
+%dl
+  %dt Elapsed time
+  %dd 0
+  %dt Current score
+  %dd 0
+  %dt High score
+  %dd 0
+  %dt Games played
+  %dd 0

@@ -1,0 +1,5 @@
+%h2 Music
+- if @music.isPaused()
+  %button Play
+- else
+  %button Pause
