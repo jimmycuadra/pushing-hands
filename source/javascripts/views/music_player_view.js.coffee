@@ -1,4 +1,6 @@
 class ph.MusicPlayerView extends Backbone.View
+  className: "span5 offset1"
+
   template: JST.music_player
 
   events:

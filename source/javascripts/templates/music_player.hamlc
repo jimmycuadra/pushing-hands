@@ -1,5 +1,15 @@
 %h2 Music
-- if @music.isPaused()
-  %button Play
-- else
-  %button Pause
+.spaced
+  %button.btn.prev
+    %i.icon-backward
+  %button.btn.btn-large.toggle
+    - if @music.isPaused()
+      %i.icon-play
+    - else
+      %i.icon-pause
+  %button.btn.next
+    %i.icon-forward
+%p
+  Music composed and performed by
+  != succeed ".", ->
+    %a{ href: "http://nebyoolae.com/", target: "_blank" } Nebyoolae

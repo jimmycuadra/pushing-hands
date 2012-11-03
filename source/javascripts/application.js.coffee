@@ -57,7 +57,7 @@ class ph.Application
     @sfx = new ph.GameSFX(["push", "match", "fill"])
     @on("sfx", @sfx.trigger)
 
-    hud = $("#hud")
+    hud = $("#hud .row-fluid")
     @stats = new ph.StatsView
     @musicPlayer = new ph.MusicPlayerView(music: @music)
 
