@@ -1,0 +1,17 @@
+(function() {
+  var _ref;
+
+  if ((_ref = window.JST) == null) {
+    window.JST = {};
+  }
+
+  window.JST['stats'] = function(context) {
+    return (function() {
+      var $o;
+      $o = [];
+      $o.push("<h2>Stats</h2>\n<table class='table'>\n  <tr>\n    <th>Current score</th>\n    <th>Elapsed time</th>\n  </tr>\n  <tr>\n    <td>0</td>\n    <td>0</td>\n  </tr>\n  <tr>\n    <th>High score</th>\n    <th>Games played</th>\n  </tr>\n  <tr>\n    <td>0</td>\n    <td>0</td>\n  </tr>\n</table>");
+      return $o.join("\n").replace(/\s(?:id|class)=(['"])(\1)/mg, "");
+    }).call(window.HAML.context(context));
+  };
+
+}).call(this);

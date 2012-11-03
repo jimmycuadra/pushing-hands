@@ -1,0 +1,35 @@
+(function() {
+  var _ref;
+
+  if ((_ref = window.JST) == null) {
+    window.JST = {};
+  }
+
+  window.JST['music_player'] = function(context) {
+    return (function() {
+      var $c, $o, succeed,
+        _this = this;
+      $c = window.HAML.cleanValue;
+      succeed = function(start, end, fn) {
+        return window.HAML.succeed.call(_this, start, end, fn);
+      };
+      $o = [];
+      $o.push("<h2>Music</h2>\n<div class='spaced'>\n  <button class='btn prev'>\n    <i class='icon-backward'></i>\n  </button>\n  <button class='btn btn-large toggle'>");
+      if (this.state === "paused") {
+        $o.push("    <i class='icon-play'></i>");
+      } else {
+        $o.push("    <i class='icon-pause'></i>");
+      }
+      $o.push("  </button>\n  <button class='btn next'>\n    <i class='icon-forward'></i>\n  </button>\n</div>\n<p>\n  Music composed and performed by");
+      $o.push("  " + $c(succeed(".", function() {
+        var $o1;
+        $o1 = [];
+        $o1.push("  <a href='http://nebyoolae.com/' target='_blank'>Nebyoolae</a>");
+        return $o1.join("\n");
+      })));
+      $o.push("</p>");
+      return $o.join("\n").replace(/\s(\w+)='true'/mg, ' $1').replace(/\s(\w+)='false'/mg, '').replace(/\s(?:id|class)=(['"])(\1)/mg, "");
+    }).call(window.HAML.context(context));
+  };
+
+}).call(this);

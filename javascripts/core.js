@@ -1,0 +1,1 @@
+(function(){window.ph={}}).call(this);
