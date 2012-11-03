@@ -1,5 +1,5 @@
 class ph.MusicPlayerView extends Backbone.View
-  className: "span5 offset1"
+  className: "well"
 
   template: JST.music_player
 

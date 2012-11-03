@@ -46,7 +46,7 @@ class ph.Application
     @stats = new ph.StatsView
     @musicPlayer = new ph.MusicPlayerView(model: @music)
 
-    hud = $("#hud .row-fluid")
+    hud = $("#hud")
     hud.append(@stats.render().el)
     hud.append(@musicPlayer.render().el)
 

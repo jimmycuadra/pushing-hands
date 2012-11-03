@@ -1,5 +1,5 @@
 class ph.StatsView extends Backbone.View
-  className: "span6"
+  className: "well"
 
   template: JST.stats
 
