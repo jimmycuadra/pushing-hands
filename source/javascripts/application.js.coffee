@@ -50,21 +50,33 @@ class ph.GameSFX
 
 class ph.Application
   constructor: (rowCount, columnCount) ->
+    @setUpGrid(rowCount, columnCount)
+    @setUpSounds()
+    @setUpHUD()
+
+  setUpGrid: (rowCount, columnCount) ->
     rows = @generateRows(rowCount, columnCount)
     @grid = new ph.CellRowsView(rows: rows)
+    @grid.render()
 
-    @music = new ph.GameMusic(["relaxing", "tense"])
-    @sfx = new ph.GameSFX(["push", "match", "fill"])
-    @on("sfx", @sfx.trigger)
+  setUpSounds: ->
+    @music = new ph.MusicPlayer {}, collection: new ph.Sounds [
+        new ph.Sound(name: "relaxing")
+        new ph.Sound(name: "tense")
+      ]
+    @sfx = new ph.Sounds [
+        new ph.Sound(name: "push")
+        new ph.Sound(name: "match")
+        new ph.Sound(name: "fill")
+      ]
+
+  setUpHUD: ->
+    @stats = new ph.StatsView
+    @musicPlayer = new ph.MusicPlayerView(model: @music)
 
     hud = $("#hud .row-fluid")
-    @stats = new ph.StatsView
-    @musicPlayer = new ph.MusicPlayerView(music: @music)
-
-    @grid.render()
     hud.append(@stats.render().el)
     hud.append(@musicPlayer.render().el)
-    @music.play()
 
   generateRows: (rowCount, columnCount) ->
     upperNeighbors = []

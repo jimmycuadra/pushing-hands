@@ -4,18 +4,22 @@ class ph.MusicPlayerView extends Backbone.View
   template: JST.music_player
 
   events:
-    "click button": "togglePlay"
+    "click .prev": "clickedPrev"
+    "click .next": "clickedNext"
+    "click .toggle": "clickedToggle"
 
-  initialize: (options) ->
-    @music = options.music
-    @music.on("togglePlay", @render, this)
+  initialize: ->
+    @model.on("change:state", @render, this)
 
   render: ->
-    @$el.html(@template(this))
+    @$el.html(@template(@model.toJSON()))
     this
 
-  togglePlay: (event) =>
-    if @music.isPaused()
-      @music.play()
-    else
-      @music.pause()
+  clickedPrev: (event) =>
+    @model.prevTrack()
+
+  clickedNext: (event) =>
+    @model.nextTrack()
+
+  clickedToggle: (event) =>
+    @model.togglePlayback()

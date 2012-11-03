@@ -3,7 +3,7 @@
   %button.btn.prev
     %i.icon-backward
   %button.btn.btn-large.toggle
-    - if @music.isPaused()
+    - if @state is "paused"
       %i.icon-play
     - else
       %i.icon-pause
