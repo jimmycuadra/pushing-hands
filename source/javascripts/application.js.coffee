@@ -7,34 +7,6 @@
 #= require_tree ./templates
 #= require_tree ./views
 
-class ph.GameMusic
-  constructor: (ids) ->
-    @currentIndex = 0
-    @clips = for id in ids
-      clip = document.getElementById(id)
-      clip.volume = 0.3
-      clip.addEventListener("ended", @playNext)
-      clip
-
-  play: ->
-    @clips[@currentIndex].play()
-    @trigger("togglePlay")
-
-  pause: ->
-    @clips[@currentIndex].pause()
-    @trigger("togglePlay")
-
-  playNext: =>
-    @pause()
-    @currentIndex++
-    @currentIndex = 0 if @currentIndex >= @clips.length
-    @play()
-
-  isPaused: ->
-    @clips[@currentIndex].paused
-
-_.extend(ph.GameMusic.prototype, Backbone.Events)
-
 class ph.GameSFX
   constructor: (ids) ->
     @clips = {}
