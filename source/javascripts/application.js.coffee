@@ -7,19 +7,6 @@
 #= require_tree ./templates
 #= require_tree ./views
 
-class ph.GameSFX
-  constructor: (ids) ->
-    @clips = {}
-    for id in ids
-      @clips[id] = document.getElementById(id)
-
-  trigger: (sfx) =>
-    clip = @clips[sfx]
-    unless clip.paused
-      clip.pause()
-      clip.currentTime = 0
-    clip.play()
-
 class ph.Application
   constructor: (rowCount, columnCount) ->
     @setUpGrid(rowCount, columnCount)
