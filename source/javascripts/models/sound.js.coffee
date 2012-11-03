@@ -14,6 +14,12 @@ class ph.Sound extends Backbone.Model
     else
       @set(state: "playing")
 
+  isPlaying: ->
+    !@isPaused()
+
+  isPaused: ->
+    @get("state") is "paused"
+
   play: ->
     @_audio.play()
 
