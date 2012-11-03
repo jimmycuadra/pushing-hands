@@ -1,5 +1,5 @@
-#= require underscore
-#= require backbone
+#= require ./vendor/underscore
+#= require ./vendor/backbone
 #= require hamlcoffee
 #= require core
 #= require_tree ./models
