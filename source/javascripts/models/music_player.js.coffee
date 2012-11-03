@@ -12,6 +12,9 @@ class ph.MusicPlayer extends Backbone.Model
   currentTrack: ->
     @collection.at(@get("currentIndex"))
 
+  isPlaying: ->
+    !@isPaused()
+
   isPaused: ->
     @get("state") is "paused"
 
@@ -26,3 +29,21 @@ class ph.MusicPlayer extends Backbone.Model
       @play()
     else
       @pause()
+
+  prevTrack: ->
+    shouldPlay = @isPlaying()
+    @currentTrack().reset()
+    index = @get("currentIndex")
+    index -= 1
+    index = @collection.length - 1 if index < 0
+    @set(currentIndex: index)
+    @play() if shouldPlay
+
+  nextTrack: ->
+    shouldPlay = @isPlaying()
+    @currentTrack().reset()
+    index = @get("currentIndex")
+    index += 1
+    index = 0 if index >= @collection.length
+    @set(currentIndex: index)
+    @play() if shouldPlay

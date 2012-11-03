@@ -19,3 +19,7 @@ class ph.Sound extends Backbone.Model
 
   pause: ->
     @_audio.pause()
+
+  reset: ->
+    @pause()
+    @_audio.currentTime = 0
