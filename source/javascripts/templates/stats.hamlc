@@ -24,4 +24,4 @@
       %td 0
       %td 0
       %td= @formatTime(@totalTime)
-      %td 0
+      %td= @gamesPlayed

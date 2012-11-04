@@ -8,6 +8,7 @@ class ph.Store extends Backbone.Model
 
   initialize: ->
     @set(currentTime: 0)
+    @set(gamesPlayed: @get("gamesPlayed") + 1)
     @on("change", @persist, this)
     @timer = new Timer
     @timer.every(1, @addTick)
@@ -25,7 +26,7 @@ class ph.Store extends Backbone.Model
   resetStats: ->
     if confirm "Are you sure you want to permanently reset your stats?"
       @timer.reset()
-      @set(highScore: 0, gamesPlayed: 0, currentTime: 0, totalTime: 0)
+      @set(highScore: 0, gamesPlayed: 1, currentTime: 0, totalTime: 0)
       @timer.start()
 
   addTick: =>
