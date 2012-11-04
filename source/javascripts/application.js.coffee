@@ -14,6 +14,7 @@ class ph.Application
     @setUpGrid(rowCount, columnCount)
     @setUpSounds()
     @setUpHUD()
+    $("#loading").remove()
 
   setUpGrid: (rowCount, columnCount) ->
     rows = @generateRows(rowCount, columnCount)
