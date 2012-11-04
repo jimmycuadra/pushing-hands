@@ -1,4 +1,19 @@
-%h1.title.centered Pushing Hands
+.navbar.navbar-static-top
+  .navbar-inner
+    %a.brand{ href: "/" } Pushing Hands
+    %ul.nav
+      %li
+        %a#rules{ href: "#" } Rules
+    %ul.nav.pull-right
+      %li
+        %p.navbar-text
+          A game by
+          %a{ href: "http://jimmycuadra.com/", target: "_blank" } Jimmy Cuadra
+      %li.divider-vertical
+      %li
+        %p.navbar-text
+          %a{ href: "https://github.com/jimmycuadra/pushing-hands", target: "_blank" } Source on GitHub
+
 
 #loading.progress.progress-striped.active
   .bar.full-width Loading…
@@ -22,6 +37,3 @@
 %audio#fill
   %source{ src: "/audio/sfx_fill.ogg", type: "audio/ogg; codecs='vorbis'" }
   %source{ src: "/audio/sfx_fill.mp3", type: "audio/mpeg; codecs='mp3'" }
-
-%p.centered
-  %small &copy; 2012 Jimmy Cuadra. All rights reserved.
