@@ -9,7 +9,7 @@
     return (function() {
       var $o;
       $o = [];
-      $o.push("<h2>\n  Music\n  <small>\n    Composed and performed by\n    <a href='http://nebyoolae.com/' target='_blank'>Nebyoolae</a>\n  </small>\n</h2>\n<button class='btn prev'>\n  <i class='icon-backward'></i>\n</button>\n<button class='btn btn-large toggle'>");
+      $o.push("<h3>\n  Music\n  <small>\n    Composed and performed by\n    <a href='http://nebyoolae.com/' target='_blank'>Nebyoolae</a>\n  </small>\n</h3>\n<button class='btn prev'>\n  <i class='icon-backward'></i>\n</button>\n<button class='btn btn-large toggle'>");
       if (this.state === "paused") {
         $o.push("  <i class='icon-play'></i>");
       } else {

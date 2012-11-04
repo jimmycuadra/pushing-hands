@@ -1,0 +1,1 @@
+(function(){window.ph={},HAML.globals=function(){return{formatTime:function(e){var t,n,r;return t=parseInt(e/3600,10),n=parseInt(e/60%60,10),r=e%60,n<10&&(n="0"+n),r<10&&(r="0"+r),""+t+":"+n+":"+r}}}}).call(this);

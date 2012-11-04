@@ -7,10 +7,12 @@
 
   window.JST['stats'] = function(context) {
     return (function() {
-      var $o;
+      var $c, $e, $o;
+      $e = window.HAML.escape;
+      $c = window.HAML.cleanValue;
       $o = [];
-      $o.push("<h2>Stats</h2>\n<table class='table'>\n  <tr>\n    <th>Current score</th>\n    <th>Elapsed time</th>\n  </tr>\n  <tr>\n    <td>0</td>\n    <td>0</td>\n  </tr>\n  <tr>\n    <th>High score</th>\n    <th>Games played</th>\n  </tr>\n  <tr>\n    <td>0</td>\n    <td>0</td>\n  </tr>\n</table>");
-      return $o.join("\n").replace(/\s(?:id|class)=(['"])(\1)/mg, "");
+      $o.push("<h3>Stats</h3>\n<h4>Current game</h4>\n<table class='table table-bordered table-condensed'>\n  <thead>\n    <tr>\n      <th>Score</th>\n      <th>Max combo</th>\n      <th>Elapsed time</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr>\n      <td>0</td>\n      <td>0</td>\n      <td>" + ($e($c(this.formatTime(this.currentTime)))) + "</td>\n    </tr>\n  </tbody>\n</table>\n<h4>All time</h4>\n<table class='table table-bordered table-condensed'>\n  <thead>\n    <tr>\n      <th>Score</th>\n      <th>Max combo</th>\n      <th>Total time</th>\n      <th>Games played</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr>\n      <td>0</td>\n      <td>0</td>\n      <td>" + ($e($c(this.formatTime(this.totalTime)))) + "</td>\n      <td>" + ($e($c(this.gamesPlayed))) + "</td>\n    </tr>\n  </tbody>\n</table>");
+      return $o.join("\n").replace(/\s(\w+)='true'/mg, ' $1').replace(/\s(\w+)='false'/mg, '').replace(/\s(?:id|class)=(['"])(\1)/mg, "");
     }).call(window.HAML.context(context));
   };
 
