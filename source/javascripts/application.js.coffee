@@ -1,6 +1,7 @@
 #= require ./vendor/underscore
 #= require ./vendor/backbone
 #= require ./vendor/amplify.store
+#= require bootstrap-modal
 #= require hamlcoffee
 #= require core
 #= require_tree ./models

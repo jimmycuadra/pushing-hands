@@ -3,7 +3,7 @@
     %a.brand{ href: "/" } Pushing Hands
     %ul.nav
       %li
-        %a#rules{ href: "#" } Rules
+        %a{ href: "#rules", data: { toggle: "modal" } } Game rules
     %ul.nav.pull-right
       %li
         %p.navbar-text
@@ -21,6 +21,37 @@
 .row-fluid.double-spaced
   %table#grid.span7.double-spaced
   #hud.span5
+
+#rules.modal.hide.fade
+  .modal-header
+    %button.close{ type: "button", data: { dismiss: "modal" } } x
+    %h3 Game rules
+  .modal-body
+    %p
+      %strong Pushing Hands
+      is a match-three block game.
+
+    %p
+      Click on the hands on either side of each row of blocks to push the
+      blocks in the row by one column. Blocks pushed off one side will wrap
+      around to the other side.
+
+    %p
+      Score points by matching three or more like colors vertically. When
+      blocks are matched, they will disappear and the blocks above the open
+      spaces will fall down. If new matches are formed as a result of the
+      fallen blocks, they too will be cleared, and your "combo chain" will
+      increase by one.
+
+    %p Scoring is awarded as follows:
+
+    %dl.dl-horizontal
+      %dt Match 3 blocks
+      %dd 1 point
+      %dt Match 4+ blocks
+      %dd 2 points for each additional block past 3
+      %dt Chains
+      %dd Multiplies the entire chain's score by number of chains
 
 %audio#relaxing
   %source{ src: "/audio/relaxing.ogg", type: "audio/ogg; codecs='vorbis'" }
