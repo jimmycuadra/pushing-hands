@@ -10,7 +10,7 @@
     %tr
       %td 0
       %td 0
-      %td 0
+      %td= @formatTime(@currentTime)
 %h4 All time
 %table.table.table-bordered.table-condensed
   %thead
@@ -23,5 +23,5 @@
     %tr
       %td 0
       %td 0
-      %td 0
+      %td= @formatTime(@totalTime)
       %td 0

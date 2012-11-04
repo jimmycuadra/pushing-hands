@@ -1,6 +1,7 @@
 #= require ./vendor/underscore
 #= require ./vendor/backbone
 #= require ./vendor/amplify.store
+#= require ./vendor/timer
 #= require bootstrap-modal
 #= require hamlcoffee
 #= require core
@@ -35,7 +36,7 @@ class ph.Application
     @music.play() if @store.get("autoPlayMusic")
 
   setUpHUD: ->
-    @stats = new ph.StatsView
+    @stats = new ph.StatsView(store: @store)
     @musicPlayer = new ph.MusicPlayerView(model: @music)
     @settings = new ph.SettingsView(model: @store)
 
