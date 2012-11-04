@@ -3,8 +3,8 @@ window.ph = {}
 HAML.globals = ->
   {
     formatTime: (ticks) ->
-      hours = parseInt(ticks / 3600)
-      minutes = parseInt((ticks / 60) % 60)
+      hours = parseInt(ticks / 3600, 10)
+      minutes = parseInt((ticks / 60) % 60, 10)
       seconds = ticks % 60
 
       minutes = "0#{minutes}" if minutes < 10
