@@ -1,14 +1,27 @@
-%h2 Stats
-%table.table
-  %tr
-    %th Current score
-    %th Elapsed time
-  %tr
-    %td 0
-    %td 0
-  %tr
-    %th High score
-    %th Games played
-  %tr
-    %td 0
-    %td 0
+%h3 Stats
+%h4 Current game
+%table.table.table-bordered.table-condensed
+  %thead
+    %tr
+      %th Score
+      %th Max combo
+      %th Elapsed time
+  %tbody
+    %tr
+      %td 0
+      %td 0
+      %td 0
+%h4 All time
+%table.table.table-bordered.table-condensed
+  %thead
+    %tr
+      %th Score
+      %th Max combo
+      %th Total time
+      %th Games played
+  %tbody
+    %tr
+      %td 0
+      %td 0
+      %td 0
+      %td 0
