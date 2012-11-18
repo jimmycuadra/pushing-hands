@@ -16,6 +16,7 @@ class ph.Application
     @setUpGrid(rowCount, columnCount)
     @setUpSounds()
     @setUpHUD()
+    @on("push", @markMatches)
     $("#loading").remove()
 
   setUpGrid: (rowCount, columnCount) ->
@@ -54,6 +55,25 @@ class ph.Application
           upperNeighbor = upperNeighbors[j]
         upperNeighbors[j] = new ph.Cell(upperNeighbor: upperNeighbor)
       new ph.CellRow(collection)
+
+  markMatches: ->
+    marked = []
+
+    for row, rowIndex in @grid.rows[0..@grid.rows.length - 3]
+      for cell, columnIndex in row.models
+        tempMarked = [cell]
+        color = cell.get("color")
+        i = 1
+        nextCell = @grid.rows[rowIndex + i].at(columnIndex)
+        while nextCell.get("color") is color
+          tempMarked.push(nextCell)
+          i++
+          nextCell = @grid.rows[rowIndex + i].at(columnIndex)
+        if tempMarked.length >= 3
+          marked.push.apply(marked, tempMarked)
+
+    _.each marked, (cell) ->
+      cell.trigger("clear")
 
 _.extend(ph.Application.prototype, Backbone.Events)
 

@@ -8,3 +8,8 @@ class ph.Cell extends Backbone.Model
       colors = _.difference(colors, [upperNeighbor.get("color")])
     index = Math.floor(Math.random() * colors.length)
     @set("color", colors[index])
+
+    @on("clear", @clear)
+
+  clear: =>
+    @set("color", null)

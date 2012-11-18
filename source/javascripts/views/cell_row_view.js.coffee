@@ -26,3 +26,4 @@ class ph.CellRowView extends Backbone.View
       nextColor = cell.get("color")
       cell.set("color", newColor)
     ph.app.sfx.trigger("play", "push") if ph.app.store.get("playSoundEffects")
+    ph.app.trigger("push")
