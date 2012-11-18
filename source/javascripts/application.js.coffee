@@ -25,8 +25,8 @@ class ph.Application
 
   setUpSounds: ->
     @music = new ph.MusicPlayer {}, collection: new ph.Sounds [
-        new ph.Sound(name: "relaxing", music: true)
-        new ph.Sound(name: "tense", music: true)
+        new ph.Sound(name: "relaxing")
+        new ph.Sound(name: "tense")
       ]
     @sfx = new ph.Sounds [
         new ph.Sound(name: "push")

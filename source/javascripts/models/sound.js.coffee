@@ -4,7 +4,6 @@ class ph.Sound extends Backbone.Model
 
   initialize: ->
     @_audio = document.getElementById(@get("name"))
-    @_audio.volume = 0.3 if @get("music")
     @_audio.addEventListener("ended", @ended)
     @_audio.addEventListener("pause", @stateChanged)
     @_audio.addEventListener("play", @stateChanged)
