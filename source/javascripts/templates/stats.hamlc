@@ -8,7 +8,7 @@
       %th Elapsed time
   %tbody
     %tr
-      %td 0
+      %td= @score
       %td 0
       %td= @formatTime(@currentTime)
 %h4 All time
@@ -21,7 +21,7 @@
       %th Games played
   %tbody
     %tr
-      %td 0
+      %td= @highScore
       %td 0
       %td= @formatTime(@totalTime)
       %td= @gamesPlayed

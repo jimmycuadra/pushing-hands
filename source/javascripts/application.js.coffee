@@ -57,6 +57,7 @@ class ph.Application
       new ph.CellRow(collection)
 
   markMatches: ->
+    score = 0
     marked = []
 
     for row, rowIndex in @grid.rows[0..@grid.rows.length - 3]
@@ -71,6 +72,9 @@ class ph.Application
           nextCell = @grid.rows[rowIndex + i].at(columnIndex)
         if tempMarked.length >= 3
           marked.push.apply(marked, tempMarked)
+          score += 3 + (tempMarked.length - 3) * 2
+
+    @store.set("score", @store.get("score") + score)
 
     _.each marked, (cell) ->
       cell.trigger("clear")
