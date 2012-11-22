@@ -27,16 +27,16 @@ The music and sound effects were written and performed by [Nebyoolae](http://neb
 
 ## Open source projects used
 
-* Ruby
-* Middleman
-* Bootstrap
-* bootstrap-sass
-* haml_coffee_assets
-* jQuery
-* Underscore.js
-* Backbone.js
-* Amplify.js
-* Timer.js
+* [Ruby](https://github.com/ruby/ruby)
+* [Middleman](https://github.com/middleman/middleman)
+* [Bootstrap](https://github.com/twitter/bootstrap)
+* [bootstrap-sass](https://github.com/thomas-mcdonald/bootstrap-sass)
+* [haml_coffee_assets](https://github.com/netzpirat/haml_coffee_assets)
+* [jQuery](https://github.com/jquery/jquery)
+* [Underscore.js](https://github.com/documentcloud/underscore)
+* [Backbone.js](https://github.com/documentcloud/backbone)
+* [Amplify.js](https://github.com/appendto/amplify)
+* [Timer.js](https://github.com/fschaefer/Timer.js)
 
 ## License
 
