@@ -16,7 +16,7 @@ Score points by matching three or more like colors vertically. When blocks are m
   <dt>Match 4+ blocks</dt>
   <dd>2 points for each additional block past 3</dd>
   <dt>Chains</dt>
-  <dd>Multiplies the entire chain's score by number of chains</dd>
+  <dd>Multiplies the score for the blocks being cleared by the current chain count</dd>
 </dl>
 
 ## Music
