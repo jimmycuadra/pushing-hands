@@ -74,10 +74,23 @@ class ph.Application
           marked.push.apply(marked, tempMarked)
           score += 3 + (tempMarked.length - 3) * 2
 
+    return if score is 0
+
     @store.set("score", @store.get("score") + score)
 
+    ph.app.sfx.trigger("play", "match") if ph.app.store.get("playSoundEffects")
     _.each marked, (cell) ->
       cell.trigger("clear")
+
+    # Forced delay to keep the sounds from overlapping. Find a better solution
+    # for this.
+    setTimeout(
+      ->
+        ph.app.sfx.trigger("play", "fill") if ph.app.store.get("playSoundEffects")
+        _.each marked.slice().reverse(), (cell) ->
+          cell.trigger("refill")
+      250
+    )
 
 _.extend(ph.Application.prototype, Backbone.Events)
 

@@ -19,7 +19,7 @@ class ph.CellRowView extends Backbone.View
   push: (flip) ->
     models = @collection.models
     if flip
-      models = Array::reverse.call(models.slice())
+      models = models.slice().reverse()
     nextColor = models[models.length - 1].get("color")
     _.each models, (cell) =>
       newColor = nextColor
