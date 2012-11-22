@@ -66,11 +66,15 @@ class ph.Application
         tempMarked = [cell]
         color = cell.get("color")
         i = 1
-        nextCell = @grid.rows[rowIndex + i].at(columnIndex)
+        nextRow = @grid.rows[rowIndex + i]
+        break unless nextRow
+        nextCell = nextRow.at(columnIndex)
         while nextCell.get("color") is color
           tempMarked.push(nextCell)
           i++
-          nextCell = @grid.rows[rowIndex + i].at(columnIndex)
+          nextRow = @grid.rows[rowIndex + i]
+          break unless nextRow
+          nextCell = nextRow.at(columnIndex)
         if tempMarked.length >= 3
           marked.push.apply(marked, tempMarked)
           score += (3 + (tempMarked.length - 3) * 2) * chain
@@ -80,20 +84,20 @@ class ph.Application
     @store.set("score", @store.get("score") + score)
     @store.set("chain", chain) if chain > @store.get("chain")
 
+    # Clear matches
+
     ph.app.sfx.trigger("play", "match")
     _.each marked, (cell) ->
       cell.trigger("clear")
 
-    # Forced delay to keep the sounds from overlapping. Find a better solution
-    # for this.
-    setTimeout(
-      ->
-        ph.app.sfx.trigger("play", "fill")
-        _.each marked.slice().reverse(), (cell) ->
-          cell.trigger("refill")
-        ph.app.trigger("push", chain + 1)
-      250
-    )
+    # Refill cleared blocks
+
+    ph.app.sfx.trigger("play", "fill")
+    @grid.refill()
+
+    # Check for more matches
+
+    ph.app.trigger("push", chain + 1)
 
 _.extend(ph.Application.prototype, Backbone.Events)
 

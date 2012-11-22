@@ -13,12 +13,16 @@ class ph.Cell extends Backbone.Model
     @set("color", colors[index])
 
     @on("clear", @clear)
-    @on("refill", @refill)
 
   clear: =>
     @set("color", null)
 
+  isClear: ->
+    !@get("color")
+
   refill: =>
+    return unless @isClear()
+
     upperNeighbor = @get("upperNeighbor")
 
     color = if upperNeighbor
@@ -33,7 +37,7 @@ class ph.Cell extends Backbone.Model
     upperNeighbor = @get("upperNeighbor")
 
     if color
-      @clear()
+      @trigger("clear")
       color
     else if upperNeighbor
       upperNeighbor.fallingBlockColor()

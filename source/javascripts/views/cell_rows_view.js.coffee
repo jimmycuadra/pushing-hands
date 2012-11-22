@@ -8,3 +8,7 @@ class ph.CellRowsView extends Backbone.View
       view = new ph.CellRowView(collection: row)
       @$el.append(view.render().el)
     this
+
+  refill: ->
+    _.each @rows.slice().reverse(), (row) ->
+      row.refill()
