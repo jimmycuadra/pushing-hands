@@ -3,6 +3,7 @@ class ph.Store extends Backbone.Model
     highScore: 0
     gamesPlayed: 0
     totalTime: 0
+    allTimeChain: 0
     autoPlayMusic: true
     playSoundEffects: true
 
@@ -10,9 +11,11 @@ class ph.Store extends Backbone.Model
     @set
       score: 0
       currentTime: 0
+      chain: 0
       gamesPlayed: @get("gamesPlayed") + 1
 
     @on("change:score", @checkHighScore, this)
+    @on("change:chain", @checkChain, this)
     @on("change", @persist, this)
 
     @timer = new Timer
@@ -21,6 +24,9 @@ class ph.Store extends Backbone.Model
 
   checkHighScore: (store, newScore) ->
     @set("highScore", newScore) if newScore > @get("highScore")
+
+  checkChain: (store, newChain) ->
+    @set("allTimeChain", newChain) if newChain > @get("allTimeChain")
 
   persist: (store) ->
     amplify.store("pushing-hands", @toJSON())
@@ -37,6 +43,8 @@ class ph.Store extends Backbone.Model
       @set
         score: 0
         highScore: 0
+        chain: 0
+        allTimeChain: 0
         currentTime: 0
         totalTime: 0
         gamesPlayed: 1

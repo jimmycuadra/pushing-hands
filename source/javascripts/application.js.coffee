@@ -56,7 +56,8 @@ class ph.Application
         upperNeighbors[j] = new ph.Cell(upperNeighbor: upperNeighbor)
       new ph.CellRow(collection)
 
-  markMatches: ->
+  markMatches: (chain) ->
+    chain or= 1
     score = 0
     marked = []
 
@@ -72,11 +73,12 @@ class ph.Application
           nextCell = @grid.rows[rowIndex + i].at(columnIndex)
         if tempMarked.length >= 3
           marked.push.apply(marked, tempMarked)
-          score += 3 + (tempMarked.length - 3) * 2
+          score += (3 + (tempMarked.length - 3) * 2) * chain
 
     return if score is 0
 
     @store.set("score", @store.get("score") + score)
+    @store.set("chain", chain) if chain > @store.get("chain")
 
     ph.app.sfx.trigger("play", "match") if ph.app.store.get("playSoundEffects")
     _.each marked, (cell) ->
@@ -89,6 +91,7 @@ class ph.Application
         ph.app.sfx.trigger("play", "fill") if ph.app.store.get("playSoundEffects")
         _.each marked.slice().reverse(), (cell) ->
           cell.trigger("refill")
+        ph.app.trigger("push", chain + 1)
       250
     )
 

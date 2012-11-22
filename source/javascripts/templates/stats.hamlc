@@ -4,24 +4,24 @@
   %thead
     %tr
       %th Score
-      %th Max combo
+      %th Longest chain
       %th Elapsed time
   %tbody
     %tr
       %td= @score
-      %td 0
+      %td= @chain
       %td= @formatTime(@currentTime)
 %h4 All time
 %table.table.table-bordered.table-condensed
   %thead
     %tr
-      %th Score
-      %th Max combo
-      %th Total time
-      %th Games played
+      %th Highest score
+      %th Longest chain
+      %th Total elapsed time
+      %th Total games played
   %tbody
     %tr
       %td= @highScore
-      %td 0
+      %td= @allTimeChain
       %td= @formatTime(@totalTime)
       %td= @gamesPlayed
