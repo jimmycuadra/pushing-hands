@@ -12,9 +12,7 @@ class ph.Cell extends Backbone.Model
     index = Math.floor(Math.random() * colors.length)
     @set("color", colors[index])
 
-    @on("clear", @clear)
-
-  clear: =>
+  clear: ->
     @set("color", null)
 
   isClear: ->

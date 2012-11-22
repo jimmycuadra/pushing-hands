@@ -13,16 +13,13 @@
 class ph.Application
   constructor: (rowCount, columnCount) ->
     @store = new ph.Store(amplify.store("pushing-hands"))
-    @setUpGrid(rowCount, columnCount)
+    @grid = new ph.Grid
+      rowCount: rowCount,
+      columnCount: columnCount,
+      app: this
     @setUpSounds()
     @setUpHUD()
-    @on("push", @markMatches)
     $("#loading").remove()
-
-  setUpGrid: (rowCount, columnCount) ->
-    rows = @generateRows(rowCount, columnCount)
-    @grid = new ph.CellRowsView(rows: rows)
-    @grid.render()
 
   setUpSounds: ->
     @music = new ph.MusicPlayer {}, collection: new ph.Sounds [
@@ -45,59 +42,6 @@ class ph.Application
     hud.append(@stats.render().el)
     hud.append(@musicPlayer.render().el)
     hud.append(@settings.render().el)
-
-  generateRows: (rowCount, columnCount) ->
-    upperNeighbors = []
-
-    rows = for i in [0...rowCount]
-      collection = for j in [0...columnCount]
-        if i > 0
-          upperNeighbor = upperNeighbors[j]
-        upperNeighbors[j] = new ph.Cell(upperNeighbor: upperNeighbor)
-      new ph.CellRow(collection)
-
-  markMatches: (chain) ->
-    chain or= 1
-    score = 0
-    marked = []
-
-    for row, rowIndex in @grid.rows[0..@grid.rows.length - 3]
-      for cell, columnIndex in row.models
-        tempMarked = [cell]
-        color = cell.get("color")
-        i = 1
-        nextRow = @grid.rows[rowIndex + i]
-        break unless nextRow
-        nextCell = nextRow.at(columnIndex)
-        while nextCell.get("color") is color
-          tempMarked.push(nextCell)
-          i++
-          nextRow = @grid.rows[rowIndex + i]
-          break unless nextRow
-          nextCell = nextRow.at(columnIndex)
-        if tempMarked.length >= 3
-          marked.push.apply(marked, tempMarked)
-          score += (3 + (tempMarked.length - 3) * 2) * chain
-
-    return if score is 0
-
-    @store.set("score", @store.get("score") + score)
-    @store.set("chain", chain) if chain > @store.get("chain")
-
-    # Clear matches
-
-    ph.app.sfx.trigger("play", "match")
-    _.each marked, (cell) ->
-      cell.trigger("clear")
-
-    # Refill cleared blocks
-
-    ph.app.sfx.trigger("play", "fill")
-    @grid.refill()
-
-    # Check for more matches
-
-    ph.app.trigger("push", chain + 1)
 
 _.extend(ph.Application.prototype, Backbone.Events)
 
