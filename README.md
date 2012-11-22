@@ -2,6 +2,8 @@
 
 Play it at [http://pushing-hands.perceptes.com/](http://pushing-hands.perceptes.com/)!
 
+![Pushing Hands](https://raw.github.com/jimmycuadra/pushing-hands/master/pushing_hands.png "Pushing Hands")
+
 **Pushing Hands** is a match-three block game.
 
 Click on the hands on either side of each row of blocks to push the blocks in the row by one column. Blocks pushed off one side will wrap around to the other side.
