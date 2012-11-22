@@ -80,7 +80,7 @@ class ph.Application
     @store.set("score", @store.get("score") + score)
     @store.set("chain", chain) if chain > @store.get("chain")
 
-    ph.app.sfx.trigger("play", "match") if ph.app.store.get("playSoundEffects")
+    ph.app.sfx.trigger("play", "match")
     _.each marked, (cell) ->
       cell.trigger("clear")
 
@@ -88,7 +88,7 @@ class ph.Application
     # for this.
     setTimeout(
       ->
-        ph.app.sfx.trigger("play", "fill") if ph.app.store.get("playSoundEffects")
+        ph.app.sfx.trigger("play", "fill")
         _.each marked.slice().reverse(), (cell) ->
           cell.trigger("refill")
         ph.app.trigger("push", chain + 1)
