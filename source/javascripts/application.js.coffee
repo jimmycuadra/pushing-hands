@@ -26,14 +26,14 @@ class ph.Application
 
   setUpSounds: ->
     @music = new ph.MusicPlayer {}, collection: new ph.Sounds [
-        new ph.Sound(name: "relaxing")
-        new ph.Sound(name: "tense")
-      ]
+      new ph.Sound(name: "relaxing")
+      new ph.Sound(name: "tense")
+    ]
     @sfx = new ph.Sounds [
-        new ph.Sound(name: "push")
-        new ph.Sound(name: "match")
-        new ph.Sound(name: "fill")
-      ]
+      new ph.Sound(name: "push")
+      new ph.Sound(name: "match")
+      new ph.Sound(name: "fill")
+    ]
     @music.play() if @store.get("autoPlayMusic")
 
   setUpHUD: ->
