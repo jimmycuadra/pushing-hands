@@ -40,34 +40,31 @@ class ph.Grid
           marked.push.apply(marked, tempMarked)
           score += (3 + (tempMarked.length - 3) * 2) * chain
 
-    if score is 0
-      return
-    else
-      @updateStats(score, chain)
-      @clear(marked)
-      setTimeout(
-        =>
-          @refill()
-          setTimeout(
-            =>
-              @markMatches(chain + 1)
-            200
-          )
-        200
-      )
+    return if score is 0
 
-  updateStats: (score, chain) ->
+    @updateStats score, chain, =>
+      @clear marked, =>
+        @refill =>
+          @markMatches(chain + 1)
+
+  updateStats: (score, chain, callback) ->
     @app.store.set("score", @app.store.get("score") + score)
     @app.store.set("chain", chain) if chain > @app.store.get("chain")
 
-  clear: (marked) =>
+    setTimeout(callback, 250)
+
+  clear: (marked, callback) =>
     @app.sfx.trigger("play", "match")
 
     _.each marked, (cell) ->
       cell.clear()
 
-  refill: ->
+    setTimeout(callback, 250)
+
+  refill: (callback) ->
     @app.sfx.trigger("play", "fill")
 
     _.each @cellRowsView.rows.slice().reverse(), (row) ->
       row.refill()
+
+    setTimeout(callback, 250)
