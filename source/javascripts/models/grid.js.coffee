@@ -15,12 +15,14 @@ class ph.Grid
         upperNeighbors[j] = new ph.Cell(upperNeighbor: upperNeighbor)
       new ph.CellRow(collection)
 
-  markMatches: (chain) ->
-    chain or= 1
+  markableRows: ->
+    @cellRowsView.rows[0..(@cellRowsView.rows.length - 3)]
+
+  markMatches: (chain = 1) ->
     score = 0
     marked = []
 
-    for row, rowIndex in @cellRowsView.rows[0..(@cellRowsView.rows.length - 3)]
+    for row, rowIndex in @markableRows()
       for cell, columnIndex in row.models
         tempMarked = [cell]
         color = cell.get("color")
@@ -38,23 +40,34 @@ class ph.Grid
           marked.push.apply(marked, tempMarked)
           score += (3 + (tempMarked.length - 3) * 2) * chain
 
-    return if score is 0
+    if score is 0
+      return
+    else
+      @updateStats(score, chain)
+      @clear(marked)
+      setTimeout(
+        =>
+          @refill()
+          setTimeout(
+            =>
+              @markMatches(chain + 1)
+            200
+          )
+        200
+      )
 
+  updateStats: (score, chain) ->
     @app.store.set("score", @app.store.get("score") + score)
     @app.store.set("chain", chain) if chain > @app.store.get("chain")
 
-    # Clear matches
-
+  clear: (marked) =>
     @app.sfx.trigger("play", "match")
+
     _.each marked, (cell) ->
       cell.clear()
 
-    # Refill cleared blocks
-
+  refill: ->
     @app.sfx.trigger("play", "fill")
+
     _.each @cellRowsView.rows.slice().reverse(), (row) ->
       row.refill()
-
-    # Check for more matches
-
-    @markMatches(chain + 1)
