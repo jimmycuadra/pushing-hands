@@ -1,5 +1,5 @@
 class ph.Cell extends Backbone.Model
-  @COLORS = ["r", "g", "b", "o"]
+  @COLORS = ["r", "g", "b", "o", "p"]
 
   @randomColor: ->
     @COLORS[_.random(0, @COLORS.length - 1)]
