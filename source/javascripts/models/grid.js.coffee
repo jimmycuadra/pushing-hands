@@ -1,5 +1,5 @@
-class ph.Grid
-  constructor: (options) ->
+class ph.Grid extends Backbone.Model
+  initialize: (attributes, options) ->
     {@rowCount, @columnCount, app} = options
     {@sfx, @store} = app
 
@@ -7,6 +7,7 @@ class ph.Grid
       rows: @generateRows()
       sfx: @sfx
       grid: this
+
     @cellRowsView.render()
 
   generateRows: ->
@@ -44,7 +45,9 @@ class ph.Grid
           marked.push.apply(marked, tempMarked)
           score += (3 + (tempMarked.length - 3) * 2) * chain
 
-    return if score is 0
+    if score is 0
+      @set("locked", false)
+      return
 
     @updateStats score, chain, =>
       @clear marked, =>

@@ -16,7 +16,7 @@ class ph.Application
 
     @setUpSounds()
 
-    @grid = new ph.Grid
+    @grid = new ph.Grid {},
       rowCount: rowCount
       columnCount: columnCount
       app: this

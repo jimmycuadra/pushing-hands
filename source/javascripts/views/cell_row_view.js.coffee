@@ -18,6 +18,10 @@ class ph.CellRowView extends Backbone.View
     this
 
   push: (flip) ->
+    return if @grid.get("locked")
+
+    @grid.set("locked", true)
+
     models = if flip
       @collection.models.slice().reverse()
     else
