@@ -35,7 +35,7 @@ class ph.Cell extends Backbone.Model
     upperNeighbor = @get("upperNeighbor")
 
     if color
-      @trigger("clear")
+      @clear()
       color
     else if upperNeighbor
       upperNeighbor.fallingBlockColor()
