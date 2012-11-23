@@ -6,6 +6,7 @@ class ph.Store extends Backbone.Model
     allTimeChain: 0
     autoPlayMusic: true
     playSoundEffects: true
+    colorblind: false
 
   initialize: ->
     @set
@@ -36,6 +37,9 @@ class ph.Store extends Backbone.Model
 
   toggleSoundEffects: ->
     @set(playSoundEffects: !@get("playSoundEffects"))
+
+  toggleColorBlind: ->
+    @set(colorblind: !@get("colorblind"))
 
   resetStats: ->
     if confirm "Are you sure you want to permanently reset your stats?"

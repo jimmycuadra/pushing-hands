@@ -9,6 +9,9 @@
         %label#sfx.checkbox
           %input{ type: "checkbox", checked: @playSoundEffects }
           Play sound effects
+        %label#colorblind.checkbox
+          %input{ type: "checkbox", checked: @colorblind }
+          Colorblind mode
       .span6
         %button#reset.btn.btn-danger
           Reset stats

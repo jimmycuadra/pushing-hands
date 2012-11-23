@@ -7,6 +7,7 @@ class ph.Grid extends Backbone.Model
       rows: @generateRows()
       sfx: @sfx
       grid: this
+      store: @store
 
     @cellRowsView.render()
 

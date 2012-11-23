@@ -4,6 +4,13 @@ class ph.Cell extends Backbone.Model
   @randomColor: ->
     @COLORS[_.random(0, @COLORS.length - 1)]
 
+  @SYMBOLS =
+    r: "♥"
+    g: "⚘"
+    b: "☃"
+    o: "☀"
+    p: "☁"
+
   initialize: ->
     colors = @constructor.COLORS.slice()
     upperNeighbor = @get("upperNeighbor")

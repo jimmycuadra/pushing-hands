@@ -2,7 +2,8 @@ class ph.CellRowView extends Backbone.View
   tagName: "tr"
 
   initialize: ->
-    {@sfx, @grid} = @options
+    {@sfx, @grid, @store} = @options
+
     @collection.on("push", @push, this)
 
   render: ->
@@ -10,7 +11,9 @@ class ph.CellRowView extends Backbone.View
     @$el.append(leftHandView.render().el)
 
     @collection.each (cell) =>
-      view = new ph.CellView(model: cell)
+      view = new ph.CellView
+        model: cell
+        store: @store
       @$el.append(view.render().el)
 
     rightHandView = new ph.HandView(cells: @collection, flip: true)

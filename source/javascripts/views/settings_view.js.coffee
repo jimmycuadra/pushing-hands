@@ -7,6 +7,7 @@ class ph.SettingsView extends Backbone.View
     "click #autoplay": "toggleAutoPlay"
     "click #sfx": "toggleSoundEffects"
     "click #reset": "resetStats"
+    "click #colorblind": "toggleColorBlind"
 
   initialize: ->
     @model.on("change", @render, this)
@@ -24,3 +25,7 @@ class ph.SettingsView extends Backbone.View
   resetStats: (event) ->
     event.preventDefault()
     @model.resetStats()
+
+  toggleColorBlind: (event) ->
+    console.log(event)
+    @model.toggleColorBlind()
