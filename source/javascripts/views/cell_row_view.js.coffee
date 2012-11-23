@@ -2,6 +2,7 @@ class ph.CellRowView extends Backbone.View
   tagName: "tr"
 
   initialize: ->
+    {@sfx, @grid} = @options
     @collection.on("push", @push, this)
 
   render: ->
@@ -17,13 +18,16 @@ class ph.CellRowView extends Backbone.View
     this
 
   push: (flip) ->
-    models = @collection.models
-    if flip
-      models = models.slice().reverse()
+    models = if flip
+      @collection.models.slice().reverse()
+    else
+      @collection.models
+
     nextColor = models[models.length - 1].get("color")
     _.each models, (cell) =>
       newColor = nextColor
       nextColor = cell.get("color")
       cell.set("color", newColor)
-    ph.app.sfx.trigger("play", "push")
-    ph.app.grid.markMatches()
+
+    @sfx.play("push")
+    @grid.markMatches()

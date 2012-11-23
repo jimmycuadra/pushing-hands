@@ -1,11 +1,11 @@
 class ph.Sounds extends Backbone.Collection
   model: ph.Sound
 
-  initialize: ->
-    @on("play", @play, this)
+  initialize: (models, options) ->
+    {@store} = options
 
   play: (name) ->
-    return unless ph.app.store.get("playSoundEffects")
+    return unless @store.get("playSoundEffects")
 
     sounds = @where(name: name)
     _.each sounds, (sound) ->

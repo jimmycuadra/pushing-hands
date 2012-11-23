@@ -1,8 +1,12 @@
 class ph.Grid
   constructor: (options) ->
-    {@rowCount, @columnCount, @app} = options
+    {@rowCount, @columnCount, app} = options
+    {@sfx, @store} = app
 
-    @cellRowsView = new ph.CellRowsView(rows: @generateRows())
+    @cellRowsView = new ph.CellRowsView
+      rows: @generateRows()
+      sfx: @sfx
+      grid: this
     @cellRowsView.render()
 
   generateRows: ->
@@ -48,13 +52,13 @@ class ph.Grid
           @markMatches(chain + 1)
 
   updateStats: (score, chain, callback) ->
-    @app.store.set("score", @app.store.get("score") + score)
-    @app.store.set("chain", chain) if chain > @app.store.get("chain")
+    @store.set("score", @store.get("score") + score)
+    @store.set("chain", chain) if chain > @store.get("chain")
 
     setTimeout(callback, 250)
 
   clear: (marked, callback) =>
-    @app.sfx.trigger("play", "match")
+    @sfx.play("match")
 
     _.each marked, (cell) ->
       cell.clear()
@@ -62,7 +66,7 @@ class ph.Grid
     setTimeout(callback, 250)
 
   refill: (callback) ->
-    @app.sfx.trigger("play", "fill")
+    @sfx.play("fill")
 
     _.each @cellRowsView.rows.slice().reverse(), (row) ->
       row.refill()
