@@ -19,7 +19,7 @@ class ph.Store extends Backbone.Model
     @on("change", @persist, this)
 
     @timer = new Timer
-    @timer.every(1, @addTick)
+    @timer.every(100, @addTick)
     @timer.start()
 
   checkHighScore: (store, newScore) ->
