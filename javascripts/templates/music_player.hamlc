@@ -7,16 +7,18 @@
 
   window.JST['music_player'] = function(context) {
     return (function() {
-      var $o;
+      var $c, $e, $o;
+      $e = window.HAML.escape;
+      $c = window.HAML.cleanValue;
       $o = [];
-      $o.push("<h3>\n  Music\n  <small>\n    Composed and performed by\n    <a href='http://nebyoolae.com/' target='_blank'>Nebyoolae</a>\n  </small>\n</h3>\n<button class='btn prev'>\n  <i class='icon-backward'></i>\n</button>\n<button class='btn btn-large toggle'>");
+      $o.push("<h3>\n  Music\n  <small>\n    Composed and performed by\n    <a href='http://nebyoolae.com/' target='_blank'>Nebyoolae</a>\n  </small>\n</h3>\n<div class='clearfix'>\n  <div class='pull-left'>\n    <button class='btn prev'>\n      <i class='icon-backward'></i>\n    </button>\n    <button class='btn btn-large toggle'>");
       if (this.state === "paused") {
-        $o.push("  <i class='icon-play'></i>");
+        $o.push("      <i class='icon-play'></i>");
       } else {
-        $o.push("  <i class='icon-pause'></i>");
+        $o.push("      <i class='icon-pause'></i>");
       }
-      $o.push("</button>\n<button class='btn next'>\n  <i class='icon-forward'></i>\n</button>");
-      return $o.join("\n").replace(/\s(?:id|class)=(['"])(\1)/mg, "");
+      $o.push("    </button>\n    <button class='btn next'>\n      <i class='icon-forward'></i>\n    </button>\n  </div>\n  <h4 class='pull-left track-title'>" + ($e($c("\"" + this.title + "\""))) + "</h4>\n</div>");
+      return $o.join("\n").replace(/\s(\w+)='true'/mg, ' $1').replace(/\s(\w+)='false'/mg, '').replace(/\s(?:id|class)=(['"])(\1)/mg, "");
     }).call(window.HAML.context(context));
   };
 
