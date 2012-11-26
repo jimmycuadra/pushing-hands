@@ -29,6 +29,7 @@ class ph.Application
     music = new ph.Sounds [
       new ph.Sound(name: "relaxing")
       new ph.Sound(name: "tense")
+      new ph.Sound(name: "arousing")
     ],
     store: @store
 

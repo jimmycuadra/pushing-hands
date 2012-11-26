@@ -3,6 +3,9 @@ class ph.Sound extends Backbone.Model
     state: "paused"
 
   initialize: ->
+    name = @get("name")
+    @set("title", name.charAt(0).toUpperCase() + name.slice(1))
+
     @_audio = document.getElementById(@get("name"))
     @_audio.addEventListener("ended", @ended)
     @_audio.addEventListener("pause", @stateChanged)

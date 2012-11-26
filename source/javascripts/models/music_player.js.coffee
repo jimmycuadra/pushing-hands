@@ -7,6 +7,11 @@ class ph.MusicPlayer extends Backbone.Model
     @collection.on("change:state", @stateChanged, this)
     @collection.on("ended", @playNextTrack, this)
 
+  toJSON: ->
+    json = super
+    json.title = @currentTrack().get("title")
+    json
+
   stateChanged: (model, state, attributes) ->
     @set(state: state)
 
